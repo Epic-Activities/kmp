@@ -1,8 +1,10 @@
 package com.epicactivities.kmp.presentation.common.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
+@Serializable
+sealed interface Route : NavKey {
     @Serializable
     data object Home : Route
 

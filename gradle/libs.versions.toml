@@ -2,32 +2,24 @@
 agp = "8.11.2"
 kotlin = "2.2.20"
 compose-multiplatform = "1.9.0"
-navigation3 = "1.0.0-alpha05"
-lifecycle = "2.9.1"
-activity-compose = "1.10.1"
+cmpNavigation3 = "1.0.0-alpha05"
+lifecycle = "2.9.4"
+activity-compose = "1.11.0"
 androidCompileSdk = "36"
 androidMinSdk = "24"
 androidTargetSdk = "36"
 
 [libraries]
-# Compose
-compose-ui = { module = "androidx.compose.ui:ui" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-compose-material3 = { module = "androidx.compose.material3:material3" }
-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+# Lifecycle — JetBrains KMP variants
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
 
-# Lifecycle / ViewModel
-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
-
-# Activity
+# Activity (Android only)
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 
-# Navigation3
-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+# Navigation3 — JetBrains KMP variant
+navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "cmpNavigation3" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
