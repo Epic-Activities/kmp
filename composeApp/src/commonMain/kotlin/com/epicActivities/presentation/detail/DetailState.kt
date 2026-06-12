@@ -1,4 +1,4 @@
-package com.epicactivities.kmp.presentation.detail
+package com.epicActivities.presentation.detail
 
 data class DetailState(
     val title: String = "Detail",
