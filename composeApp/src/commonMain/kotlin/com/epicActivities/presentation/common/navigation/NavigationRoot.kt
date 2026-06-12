@@ -1,11 +1,11 @@
-package com.epicactivities.kmp.presentation.common.navigation
+package com.epicActivities.presentation.common.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.epicactivities.kmp.presentation.detail.DetailScreen
-import com.epicactivities.kmp.presentation.home.HomeScreen
+import com.epicActivities.presentation.detail.DetailScreen
+import com.epicActivities.presentation.home.HomeScreen
 
 @Composable
 fun NavigationRoot() {
@@ -16,12 +16,16 @@ fun NavigationRoot() {
         entryProvider = entryProvider {
             entry<Route.Home> {
                 HomeScreen(
-                    onNavigateToDetail = { backStack.add(Route.Detail) }
+                    onNavigateToDetail = {
+                        backStack.addIfAbsent(Route.Detail)
+                    }
                 )
             }
             entry<Route.Detail> {
                 DetailScreen(
-                    onBack = { backStack.removeLastOrNull() }
+                    onBack = {
+                        backStack.popIfNotRoot()
+                    }
                 )
             }
         },

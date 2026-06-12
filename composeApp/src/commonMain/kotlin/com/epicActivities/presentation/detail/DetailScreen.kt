@@ -1,4 +1,4 @@
-package com.epicactivities.kmp.presentation.home
+package com.epicActivities.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun HomeScreen(
-    onNavigateToDetail: () -> Unit,
-    viewModel: HomeViewModel = viewModel(),
+fun DetailScreen(
+    onBack: () -> Unit,
+    viewModel: DetailViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -25,8 +25,8 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = state.title)
-        Button(onClick = onNavigateToDetail) {
-            Text("Go to Detail")
+        Button(onClick = onBack) {
+            Text("Back")
         }
     }
 }

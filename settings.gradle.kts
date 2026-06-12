@@ -1,4 +1,4 @@
-rootProject.name = "KMP"
+rootProject.name = "EpicActivities"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

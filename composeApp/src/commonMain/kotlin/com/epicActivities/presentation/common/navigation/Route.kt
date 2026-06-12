@@ -1,4 +1,4 @@
-package com.epicactivities.kmp.presentation.common.navigation
+package com.epicActivities.presentation.common.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable

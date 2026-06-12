@@ -1,4 +1,4 @@
-package com.epicactivities.kmp.presentation.home
+package com.epicActivities.presentation.home
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

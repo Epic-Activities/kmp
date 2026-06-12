@@ -48,11 +48,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.epicactivities.kmp"
+    namespace = "com.epicActivities"
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.epicactivities.kmp"
+        applicationId = "com.epicActivities"
         minSdk = libs.versions.androidMinSdk.get().toInt()
         targetSdk = libs.versions.androidTargetSdk.get().toInt()
         versionCode = 1
