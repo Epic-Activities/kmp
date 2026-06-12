@@ -1,0 +1,2 @@
+// This file is a placeholder. Open the project in Xcode to regenerate.
+// The iOS app is configured to call MainViewController() from the KMP shared framework.
