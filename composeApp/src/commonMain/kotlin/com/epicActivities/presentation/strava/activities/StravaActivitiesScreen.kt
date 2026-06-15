@@ -38,7 +38,7 @@ fun StravaActivitiesScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Mis actividades") },
+                title = { Text("Seleccionar actividad") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
