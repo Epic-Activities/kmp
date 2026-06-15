@@ -15,5 +15,16 @@ sealed interface Route : NavKey {
     data object GpxUpload : Route
 
     @Serializable
-    data class PhotoSelection(val activityId: String) : Route
+    data class PhotoSelection(
+        val activityId: String,
+        val activityTitle: String,
+        val polyline: String,
+    ) : Route
+
+    @Serializable
+    data class Preview(
+        val activityTitle: String,
+        val polyline: String,
+        val photoUri: String,
+    ) : Route
 }

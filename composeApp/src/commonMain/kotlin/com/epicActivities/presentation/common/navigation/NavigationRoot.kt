@@ -7,6 +7,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.epicActivities.presentation.gpx.upload.GpxUploadScreen
 import com.epicActivities.presentation.home.HomeScreen
 import com.epicActivities.presentation.photo.selection.PhotoSelectionScreen
+import com.epicActivities.presentation.preview.PreviewScreen
 import com.epicActivities.presentation.strava.activities.StravaActivitiesScreen
 
 @Composable
@@ -30,7 +31,13 @@ fun NavigationRoot() {
                 StravaActivitiesScreen(
                     onBack = { backStack.popIfNotRoot() },
                     onActivitySelected = { activity ->
-                        backStack.add(Route.PhotoSelection(activity.id))
+                        backStack.add(
+                            Route.PhotoSelection(
+                                activityId = activity.id,
+                                activityTitle = activity.title,
+                                polyline = activity.polyline,
+                            ),
+                        )
                     },
                 )
             }
@@ -41,8 +48,27 @@ fun NavigationRoot() {
             }
             entry<Route.PhotoSelection> { route ->
                 PhotoSelectionScreen(
-                    activityId = route.activityId,
+                    activityTitle = route.activityTitle,
+                    polyline = route.polyline,
                     onBack = { backStack.popIfNotRoot() },
+                    onNavigateToPreview = { photoUri ->
+                        backStack.add(
+                            Route.Preview(
+                                activityTitle = route.activityTitle,
+                                polyline = route.polyline,
+                                photoUri = photoUri,
+                            ),
+                        )
+                    },
+                )
+            }
+            entry<Route.Preview> { route ->
+                PreviewScreen(
+                    activityTitle = route.activityTitle,
+                    polyline = route.polyline,
+                    photoUri = route.photoUri,
+                    onBack = { backStack.popIfNotRoot() },
+                    onGenerateEpic = { /* TODO: AI generation */ },
                 )
             }
         },
