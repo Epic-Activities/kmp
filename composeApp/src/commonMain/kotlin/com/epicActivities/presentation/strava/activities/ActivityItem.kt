@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -36,33 +37,32 @@ fun ActivityItem(
             .fillMaxWidth()
             .clickable(onClick = onClick),
     ) {
-        Column(
+        Row(
             modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                SportTypeBadge(label = activity.sportType.displayName)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = activity.date,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = activity.title,
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
             PolylineCanvas(
                 polyline = activity.polyline,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(80.dp),
+                modifier = Modifier.size(64.dp),
             )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    SportTypeBadge(label = activity.sportType.displayName)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = activity.date,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = activity.title,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+            }
         }
     }
 }
