@@ -40,7 +40,7 @@ class GetActivitiesUseCase {
             title = "Trail running en el bosque",
             date = "2 jun 2026",
             sportType = SportType.Hike,
-            polyline = "gcpyHfmioVrBqAcBz@gEgEgEz@cBfEfErBqA",
+            polyline = "gcpyHfmioVrBqAcBz@gEgEgEz@cBfEfErB",
         ),
         Activity(
             id = "5",

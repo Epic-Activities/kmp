@@ -17,6 +17,8 @@ fun decodePolyline(encoded: String): List<Pair<Double, Double>> {
         } while (byte >= 0x20)
         lat += if (value and 1 != 0) (value shr 1).inv() else value shr 1
 
+        if (index >= encoded.length) break
+
         shift = 0
         value = 0
         do {
