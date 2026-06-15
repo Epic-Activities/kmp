@@ -21,15 +21,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.epicActivities.presentation.common.photopicker.rememberPhotoPicker
 
@@ -40,12 +41,10 @@ fun PhotoSelectionScreen(
     polyline: String,
     onBack: () -> Unit,
     onNavigateToPreview: (photoUri: String) -> Unit,
-    viewModel: PhotoSelectionViewModel = viewModel(),
 ) {
-    val state by viewModel.state.collectAsState()
-    val selectedPhotoUri = state.selectedPhotoUri
+    var selectedPhotoUri by remember { mutableStateOf<String?>(null) }
     val launchPicker = rememberPhotoPicker { uri ->
-        if (uri != null) viewModel.onPhotoSelected(uri)
+        if (uri != null) selectedPhotoUri = uri
     }
 
     Scaffold(
@@ -63,10 +62,11 @@ fun PhotoSelectionScreen(
             )
         },
         bottomBar = {
-            if (selectedPhotoUri != null) {
+            val uri = selectedPhotoUri
+            if (uri != null) {
                 Box(modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)) {
                     Button(
-                        onClick = { onNavigateToPreview(selectedPhotoUri) },
+                        onClick = { onNavigateToPreview(uri) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
