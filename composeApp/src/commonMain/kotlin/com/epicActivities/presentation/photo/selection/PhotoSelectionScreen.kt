@@ -23,7 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +42,7 @@ fun PhotoSelectionScreen(
     onBack: () -> Unit,
     onNavigateToPreview: (photoUri: String) -> Unit,
 ) {
-    var selectedPhotoUri by remember { mutableStateOf<String?>(null) }
+    var selectedPhotoUri by rememberSaveable { mutableStateOf<String?>(null) }
     val launchPicker = rememberPhotoPicker { uri ->
         if (uri != null) selectedPhotoUri = uri
     }
