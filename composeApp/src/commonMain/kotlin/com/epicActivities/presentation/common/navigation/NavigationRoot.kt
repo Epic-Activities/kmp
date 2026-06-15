@@ -6,6 +6,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.epicActivities.presentation.gpx.upload.GpxUploadScreen
 import com.epicActivities.presentation.home.HomeScreen
+import com.epicActivities.presentation.photo.selection.PhotoSelectionScreen
 import com.epicActivities.presentation.strava.activities.StravaActivitiesScreen
 
 @Composable
@@ -28,10 +29,19 @@ fun NavigationRoot() {
             entry<Route.StravaActivities> {
                 StravaActivitiesScreen(
                     onBack = { backStack.popIfNotRoot() },
+                    onActivitySelected = { activity ->
+                        backStack.add(Route.PhotoSelection(activity.id))
+                    },
                 )
             }
             entry<Route.GpxUpload> {
                 GpxUploadScreen(
+                    onBack = { backStack.popIfNotRoot() },
+                )
+            }
+            entry<Route.PhotoSelection> { route ->
+                PhotoSelectionScreen(
+                    activityId = route.activityId,
                     onBack = { backStack.popIfNotRoot() },
                 )
             }
