@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.lifecycle.runtime.compose)
 
             implementation(libs.navigation3.ui)
+            implementation(libs.coil.compose)
         }
     }
 }
