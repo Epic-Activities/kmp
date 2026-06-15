@@ -9,5 +9,8 @@ sealed interface Route : NavKey {
     data object Home : Route
 
     @Serializable
-    data object Detail : Route
+    data object StravaActivities : Route
+
+    @Serializable
+    data object GpxUpload : Route
 }
