@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.epicActivities.presentation.detail.DetailScreen
+import com.epicActivities.presentation.gpx.upload.GpxUploadScreen
 import com.epicActivities.presentation.home.HomeScreen
+import com.epicActivities.presentation.strava.activities.StravaActivitiesScreen
 
 @Composable
 fun NavigationRoot() {
@@ -16,16 +17,22 @@ fun NavigationRoot() {
         entryProvider = entryProvider {
             entry<Route.Home> {
                 HomeScreen(
-                    onNavigateToDetail = {
-                        backStack.addIfAbsent(Route.Detail)
-                    }
+                    onNavigateToStravaActivities = {
+                        backStack.addIfAbsent(Route.StravaActivities)
+                    },
+                    onNavigateToGpxUpload = {
+                        backStack.addIfAbsent(Route.GpxUpload)
+                    },
                 )
             }
-            entry<Route.Detail> {
-                DetailScreen(
-                    onBack = {
-                        backStack.popIfNotRoot()
-                    }
+            entry<Route.StravaActivities> {
+                StravaActivitiesScreen(
+                    onBack = { backStack.popIfNotRoot() },
+                )
+            }
+            entry<Route.GpxUpload> {
+                GpxUploadScreen(
+                    onBack = { backStack.popIfNotRoot() },
                 )
             }
         },
