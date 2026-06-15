@@ -38,6 +38,7 @@ fun GpxUploadScreen(
     viewModel: GpxUploadViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+    val selectedFileName = state.selectedFileName
 
     Scaffold(
         topBar = {
@@ -75,7 +76,7 @@ fun GpxUploadScreen(
             )
             Spacer(modifier = Modifier.height(40.dp))
 
-            if (state.selectedFileName != null) {
+            if (selectedFileName != null) {
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier
@@ -90,7 +91,7 @@ fun GpxUploadScreen(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = state.selectedFileName,
+                            text = selectedFileName,
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.weight(1f),
                         )
@@ -113,7 +114,7 @@ fun GpxUploadScreen(
                     .height(56.dp),
             ) {
                 Text(
-                    text = if (state.selectedFileName != null) "Cambiar archivo" else "Seleccionar archivo GPX",
+                    text = if (selectedFileName != null) "Cambiar archivo" else "Seleccionar archivo GPX",
                     style = MaterialTheme.typography.labelLarge,
                 )
             }
