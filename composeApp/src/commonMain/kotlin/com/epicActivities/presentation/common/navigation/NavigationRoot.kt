@@ -68,7 +68,6 @@ fun NavigationRoot() {
                     polyline = route.polyline,
                     photoUri = route.photoUri,
                     onBack = { backStack.popIfNotRoot() },
-                    onGenerateEpic = { /* TODO: AI generation */ },
                 )
             }
         },
