@@ -18,6 +18,7 @@ import kotlinx.serialization.json.Json
 
 class ImageGenerationApi {
     private val client = HttpClient {
+        expectSuccess = true
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
         }
