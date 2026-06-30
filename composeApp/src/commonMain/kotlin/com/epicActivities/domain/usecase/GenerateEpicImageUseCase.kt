@@ -7,6 +7,6 @@ import com.epicActivities.domain.repository.ImageGenerationRepository
 class GenerateEpicImageUseCase(
     private val repository: ImageGenerationRepository = ImageGenerationRepositoryImpl(),
 ) {
-    suspend operator fun invoke(photoUri: String, polyline: String): Result<GeneratedImage> =
-        repository.generate(photoUri, polyline)
+    suspend operator fun invoke(photoUri: String): Result<GeneratedImage> =
+        repository.generate(photoUri)
 }

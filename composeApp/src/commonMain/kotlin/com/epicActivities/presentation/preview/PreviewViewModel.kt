@@ -15,12 +15,12 @@ class PreviewViewModel : ViewModel() {
     private val _state = MutableStateFlow(PreviewState())
     val state: StateFlow<PreviewState> = _state.asStateFlow()
 
-    fun generateEpic(photoUri: String, polyline: String) {
+    fun generateEpic(photoUri: String) {
         viewModelScope.launch {
             _state.update { it.copy(isGenerating = true, error = null) }
-            generateEpicImageUseCase(photoUri, polyline)
+            generateEpicImageUseCase(photoUri)
                 .onSuccess { image ->
-                    _state.update { it.copy(isGenerating = false, generatedImageUrl = image.imageUrl) }
+                    _state.update { it.copy(isGenerating = false, generatedImageBytes = image.imageBytes) }
                 }
                 .onFailure { error ->
                     _state.update {
