@@ -6,5 +6,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GenerateImageResponse(
     @SerialName("image_url") val imageUrl: String,
-    val prompt: String,
 )

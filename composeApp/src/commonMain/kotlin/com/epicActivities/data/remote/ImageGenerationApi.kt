@@ -1,5 +1,6 @@
 package com.epicActivities.data.remote
 
+import com.epicActivities.data.remote.dto.ActivityRequest
 import com.epicActivities.data.remote.dto.GenerateImageResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -12,6 +13,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class ImageGenerationApi {
@@ -25,12 +27,15 @@ class ImageGenerationApi {
         }
     }
 
-    suspend fun generate(photoBytes: ByteArray, polyline: String): GenerateImageResponse =
-        client.post("$BASE_URL/generate") {
+    private val json = Json { ignoreUnknownKeys = true }
+
+    suspend fun generate(photoBytes: ByteArray): GenerateImageResponse =
+        client.post("$BASE_URL/generate-overlay") {
             setBody(
                 MultiPartFormDataContent(
                     formData {
-                        append("polyline", polyline)
+                        val activities = HARDCODED_POLYLINES.map { ActivityRequest(polyline = it) }
+                        append("activities", json.encodeToString(activities))
                         append(
                             key = "photo",
                             value = photoBytes,

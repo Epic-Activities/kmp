@@ -79,8 +79,8 @@ fun PreviewScreen(
                 Spacer(modifier = Modifier.height(20.dp))
 
                 // Generated image replaces side-by-side view once available
-                val generatedUrl = state.generatedImageUrl
-                if (generatedUrl != null) {
+                val generatedBytes = state.generatedImageBytes
+                if (generatedBytes != null) {
                     Text(
                         text = "Imagen generada",
                         style = MaterialTheme.typography.labelMedium,
@@ -88,7 +88,7 @@ fun PreviewScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     AsyncImage(
-                        model = generatedUrl,
+                        model = generatedBytes,
                         contentDescription = "Imagen épica generada",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -164,7 +164,7 @@ fun PreviewScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = { viewModel.generateEpic(photoUri, polyline) },
+                onClick = { viewModel.generateEpic(photoUri) },
                 enabled = !state.isGenerating,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
             ) {
@@ -176,7 +176,7 @@ fun PreviewScreen(
                     )
                 } else {
                     Text(
-                        text = if (state.generatedImageUrl != null) "Regenerar" else "Generar Epic",
+                        text = if (state.generatedImageBytes != null) "Regenerar" else "Generar Epic",
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }

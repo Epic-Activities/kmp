@@ -4,14 +4,18 @@ import com.epicActivities.data.remote.ImageGenerationApi
 import com.epicActivities.domain.model.GeneratedImage
 import com.epicActivities.domain.repository.ImageGenerationRepository
 import com.epicActivities.platform.readPhotoBytes
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 class ImageGenerationRepositoryImpl(
     private val api: ImageGenerationApi = ImageGenerationApi(),
 ) : ImageGenerationRepository {
-    override suspend fun generate(photoUri: String, polyline: String): Result<GeneratedImage> =
+    @OptIn(ExperimentalEncodingApi::class)
+    override suspend fun generate(photoUri: String): Result<GeneratedImage> =
         runCatching {
             val bytes = readPhotoBytes(photoUri)
-            val response = api.generate(bytes, polyline)
-            GeneratedImage(imageUrl = response.imageUrl, prompt = response.prompt)
+            val response = api.generate(bytes)
+            val base64 = response.imageUrl.substringAfter("base64,")
+            GeneratedImage(imageBytes = Base64.Default.decode(base64))
         }
 }
