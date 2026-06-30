@@ -15,7 +15,7 @@ class ImageGenerationRepositoryImpl(
         runCatching {
             val bytes = readPhotoBytes(photoUri)
             val response = api.generate(bytes)
-            val base64 = response.imageUrl.substringAfter("base64,")
-            GeneratedImage(imageBytes = Base64.Default.decode(base64))
+            val base64 = response.imageUrl.substringAfter("base64,").trim()
+            GeneratedImage(imageBytes = Base64.Mime.decode(base64))
         }
 }
