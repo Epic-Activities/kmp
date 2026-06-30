@@ -3,7 +3,7 @@ package com.epicActivities.platform
 import android.content.Context
 import android.net.Uri
 
-private lateinit var appContext: Context
+lateinit var appContext: Context
 
 fun initAppContext(context: Context) {
     appContext = context.applicationContext
