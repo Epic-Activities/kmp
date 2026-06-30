@@ -28,7 +28,7 @@ class ImageGenerationApi {
         }
     }
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     suspend fun generate(photoBytes: ByteArray): GenerateImageResponse =
         client.post("$BASE_URL/generate-overlay") {
