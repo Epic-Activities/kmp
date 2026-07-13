@@ -2,52 +2,121 @@ package com.epicActivities.domain.usecase
 
 import com.epicActivities.domain.model.Activity
 import com.epicActivities.domain.model.SportType
-import kotlinx.coroutines.delay
 
 class GetActivitiesUseCase {
-    suspend operator fun invoke(): List<Activity> {
-        delay(3_000)
-        return fakeActivities
-    }
+    suspend operator fun invoke(): List<Activity> = fakeActivities
 
-    // Polylines use Google Encoded Polyline format.
-    // Each delta segment: gEgE=(+0.001,+0.001) NE, cBz@=(+0.0005,-0.0003) NW,
-    // fEfE=(-0.001,-0.001) SW, z@cB=(-0.0003,+0.0005) SE
     private val fakeActivities = listOf(
-        Activity(
-            id = "1",
-            title = "Carrera matutina en el parque",
-            date = "10 jun 2026",
-            sportType = SportType.Run,
-            polyline = "gcpyHfmioVgEgEcBz@cBz@fEfEfEfEz@cBz@cBgEgE",
-        ),
-        Activity(
-            id = "2",
-            title = "Vuelta en bici por la montaña",
-            date = "8 jun 2026",
-            sportType = SportType.Ride,
-            polyline = "gcpyHfmioVgEgEgEgEcBz@cBz@fEfEfEfEz@cBz@cBgEgEcBz@",
-        ),
-        Activity(
-            id = "3",
-            title = "Caminata vespertina",
-            date = "5 jun 2026",
-            sportType = SportType.Walk,
-            polyline = "gcpyHfmioVrBqA`@e@zAgBrBqA`@e@",
-        ),
-        Activity(
-            id = "4",
-            title = "Trail running en el bosque",
-            date = "2 jun 2026",
-            sportType = SportType.Hike,
-            polyline = "gcpyHfmioVrBqAcBz@gEgEgEz@cBfEfErB",
-        ),
-        Activity(
-            id = "5",
-            title = "Natación en la piscina olímpica",
-            date = "1 jun 2026",
-            sportType = SportType.Swim,
-            polyline = "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfE",
-        ),
+        // Julio 2026
+        Activity("1",  "Carrera matutina en el parque",        "10 jul 2026", SportType.Run,  5.3,  1680,  "gcpyHfmioVgEgEcBz@cBz@fEfEfEfEz@cBz@cBgEgE"),
+        Activity("2",  "Vuelta en bici por la montaña",        "8 jul 2026",  SportType.Ride, 42.1, 5580,  "gcpyHfmioVgEgEgEgEcBz@cBz@fEfEfEfEz@cBz@cBgEgEcBz@"),
+        Activity("3",  "Caminata vespertina",                  "6 jul 2026",  SportType.Walk, 3.8,  2700,  "gcpyHfmioVrBqA`@e@zAgBrBqA`@e@"),
+        Activity("4",  "Trail running en el bosque",           "4 jul 2026",  SportType.Hike, 12.4, 5400,  "gcpyHfmioVrBqAcBz@gEgEgEz@cBfEfErB"),
+        Activity("5",  "Natación en la piscina olímpica",      "2 jul 2026",  SportType.Swim, 2.0,  3600,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfE"),
+        // Junio 2026
+        Activity("6",  "10K de entrenamiento",                 "30 jun 2026", SportType.Run,  10.0, 3180,  "gcpyHfmioVgEgEgEgEcBz@fEfEfEfEcBz@gEgE"),
+        Activity("7",  "Ciclismo por la costa",                "28 jun 2026", SportType.Ride, 58.7, 7560,  "gcpyHfmioVcBz@cBz@gEgEgEgEfEfEcBz@cBz@"),
+        Activity("8",  "Senderismo al Cerro de la Silla",      "26 jun 2026", SportType.Hike, 8.9,  9000,  "gcpyHfmioVgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfE"),
+        Activity("9",  "Paseo por el centro histórico",        "24 jun 2026", SportType.Walk, 4.2,  3240,  "gcpyHfmioVz@cBz@cBcBz@cBz@z@cB"),
+        Activity("10", "Fartlek urbano",                       "22 jun 2026", SportType.Run,  7.6,  2520,  "gcpyHfmioVgEgEfEfEgEgEfEfEgEgEfEfE"),
+        Activity("11", "Rodaje suave de recuperación",         "20 jun 2026", SportType.Run,  6.0,  2160,  "gcpyHfmioVcBz@cBz@cBz@cBz@cBz@cBz@"),
+        Activity("12", "Ciclismo de montaña",                  "18 jun 2026", SportType.Ride, 31.5, 4320,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEgEgEgEgE"),
+        Activity("13", "Carrera nocturna 8K",                  "16 jun 2026", SportType.Run,  8.0,  2700,  "gcpyHfmioVfEfEfEfEgEgEgEgEfEfEgEgE"),
+        Activity("14", "Natación abierta en el lago",          "14 jun 2026", SportType.Swim, 1.5,  2700,  "gcpyHfmioVgEgEgEgEfEfEfEfEgEgE"),
+        Activity("15", "Paseo en bici con amigos",             "12 jun 2026", SportType.Ride, 25.0, 3960,  "gcpyHfmioVz@cBcBz@z@cBcBz@z@cBcBz@"),
+        Activity("16", "Media maratón Guadalajara",            "10 jun 2026", SportType.Run,  21.1, 6840,  "gcpyHfmioVgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfE"),
+        Activity("17", "Senderismo en la Sierra Madre",        "8 jun 2026",  SportType.Hike, 15.3, 12600, "gcpyHfmioVgEgEcBz@gEgEcBz@gEgEcBz@"),
+        Activity("18", "Carrera de intervalos 400m",           "6 jun 2026",  SportType.Run,  9.2,  2880,  "gcpyHfmioVgEgEfEfEgEgEfEfEgEgEfEfEgEgE"),
+        Activity("19", "Cicloturismo Valle de Bravo",          "4 jun 2026",  SportType.Ride, 87.4, 14400, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("20", "Caminata al amanecer",                 "2 jun 2026",  SportType.Walk, 5.1,  3780,  "gcpyHfmioVcBz@z@cBcBz@z@cB"),
+        // Mayo 2026
+        Activity("21", "5K en el parque Fundidora",           "31 may 2026", SportType.Run,  5.0,  1500,  "gcpyHfmioVgEgEcBz@fEfEcBz@gEgE"),
+        Activity("22", "Entrenamiento de ciclismo en pista",  "29 may 2026", SportType.Ride, 45.0, 5400,  "gcpyHfmioVgEgEgEgEcBz@fEfEfEfEcBz@gEgEgEgE"),
+        Activity("23", "Caminata en la playa",                "27 may 2026", SportType.Walk, 6.3,  4500,  "gcpyHfmioVcBz@cBz@cBz@z@cBz@cBz@cB"),
+        Activity("24", "Ruta de montaña Chipinque",           "25 may 2026", SportType.Hike, 18.7, 14400, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("25", "Natación 2km estilo libre",           "23 may 2026", SportType.Swim, 2.0,  3120,  "gcpyHfmioVgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfE"),
+        Activity("26", "Carrera de tempo 12K",                "21 may 2026", SportType.Run,  12.0, 3780,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfEgEgEgEgE"),
+        Activity("27", "Bicicleta al trabajo y regreso",      "19 may 2026", SportType.Ride, 18.4, 3240,  "gcpyHfmioVcBz@cBz@gEgEcBz@cBz@gEgE"),
+        Activity("28", "Senderismo familiar Huasteca",        "17 may 2026", SportType.Hike, 7.2,  7200,  "gcpyHfmioVz@cBgEgEz@cBgEgEz@cBgEgE"),
+        Activity("29", "Carrera 8K con lluvia",               "15 may 2026", SportType.Run,  8.0,  2580,  "gcpyHfmioVgEgEgEgEfEfEfEfEgEgEgEgE"),
+        Activity("30", "Paseo dominical en Bosque de Chapultepec", "13 may 2026", SportType.Walk, 7.8, 5400, "gcpyHfmioVz@cBz@cBz@cBz@cBz@cBz@cB"),
+        Activity("31", "Ciclismo de ruta 60km",               "11 may 2026", SportType.Ride, 60.0, 7920,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("32", "Rodaje largo 22K",                    "9 may 2026",  SportType.Run,  22.0, 7560,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("33", "Natación técnica mariposa",           "7 may 2026",  SportType.Swim, 1.2,  2160,  "gcpyHfmioVcBz@cBz@cBz@cBz@fEfEcBz@cBz@"),
+        Activity("34", "Trail nocturno con linternas",        "5 may 2026",  SportType.Hike, 10.5, 7200,  "gcpyHfmioVgEgEcBz@fEfEcBz@gEgEcBz@fEfE"),
+        Activity("35", "Rodaje matutino 7K",                  "3 may 2026",  SportType.Run,  7.0,  2340,  "gcpyHfmioVcBz@gEgEcBz@gEgEcBz@gEgE"),
+        Activity("36", "Ciclismo en grupo 75K",               "1 may 2026",  SportType.Ride, 75.0, 9000,  "gcpyHfmioVgEgEgEgEgEgEcBz@fEfEfEfEfEfEcBz@gEgEgEgEgEgE"),
+        // Abril 2026
+        Activity("37", "Caminata meditativa al parque",       "29 abr 2026", SportType.Walk, 4.5,  3300,  "gcpyHfmioVz@cBcBz@z@cBcBz@z@cBcBz@z@cB"),
+        Activity("38", "Carrera bajo la lluvia 6K",           "27 abr 2026", SportType.Run,  6.0,  1980,  "gcpyHfmioVfEfEgEgEfEfEgEgEfEfEgEgE"),
+        Activity("39", "Bici de montaña técnica",             "25 abr 2026", SportType.Ride, 28.3, 5400,  "gcpyHfmioVgEgEcBz@gEgEcBz@fEfEcBz@gEgEcBz@"),
+        Activity("40", "Excursión de día completo al Pico de Orizaba", "23 abr 2026", SportType.Hike, 22.0, 32400, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("41", "Natación de fondo 3km",               "21 abr 2026", SportType.Swim, 3.0,  4800,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("42", "Carrera de pista 10x400m",            "19 abr 2026", SportType.Run,  8.5,  2520,  "gcpyHfmioVgEgEgEgEfEfEfEfEgEgEgEgEfEfEfEfE"),
+        Activity("43", "Ciclismo bajo la lluvia 35K",         "17 abr 2026", SportType.Ride, 35.0, 5400,  "gcpyHfmioVcBz@gEgEcBz@gEgEcBz@gEgEcBz@gEgE"),
+        Activity("44", "Senderismo con mochila 14K",          "15 abr 2026", SportType.Hike, 14.0, 10800, "gcpyHfmioVgEgEgEgEcBz@fEfEfEfEcBz@gEgEgEgE"),
+        Activity("45", "Paseo en el bosque con el perro",     "13 abr 2026", SportType.Walk, 3.2,  2400,  "gcpyHfmioVcBz@z@cBcBz@z@cBcBz@z@cBcBz@"),
+        Activity("46", "10K competencia OXXO Run",            "11 abr 2026", SportType.Run,  10.0, 2940,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfEgEgEgEgEgEgE"),
+        Activity("47", "Ciclismo de resistencia 90K",         "9 abr 2026",  SportType.Ride, 90.0, 11880, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("48", "Carrera de montaña Huasteca 15K",     "7 abr 2026",  SportType.Hike, 15.0, 9000,  "gcpyHfmioVgEgEgEgEcBz@gEgEgEgEcBz@fEfEfEfEcBz@gEgEgEgE"),
+        Activity("49", "Natación velocidad 800m",             "5 abr 2026",  SportType.Swim, 0.8,  1020,  "gcpyHfmioVgEgEfEfEgEgEfEfEgEgEfEfE"),
+        Activity("50", "Rodaje largo 25K",                    "3 abr 2026",  SportType.Run,  25.0, 8700,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        // Marzo 2026
+        Activity("51", "Bici recreativa Valle de Bravo",      "30 mar 2026", SportType.Ride, 22.0, 3960,  "gcpyHfmioVz@cBz@cBcBz@cBz@z@cBz@cBcBz@cBz@"),
+        Activity("52", "Caminata nórdica en el parque",       "28 mar 2026", SportType.Walk, 6.0,  3960,  "gcpyHfmioVgEgEfEfEgEgEfEfEgEgE"),
+        Activity("53", "Carrera suave 6K de recuperación",    "26 mar 2026", SportType.Run,  6.0,  2160,  "gcpyHfmioVcBz@cBz@gEgEcBz@cBz@gEgE"),
+        Activity("54", "Ciclismo urbano al trabajo",          "24 mar 2026", SportType.Ride, 14.5, 2700,  "gcpyHfmioVz@cBcBz@z@cBcBz@gEgEz@cBcBz@"),
+        Activity("55", "Senderismo en costa de Jalisco",      "22 mar 2026", SportType.Hike, 9.4,  7200,  "gcpyHfmioVcBz@gEgEcBz@gEgEcBz@gEgEcBz@gEgE"),
+        Activity("56", "Natación recreativa 1km",             "20 mar 2026", SportType.Swim, 1.0,  1980,  "gcpyHfmioVcBz@cBz@cBz@cBz@cBz@cBz@"),
+        Activity("57", "Maratón de Monterrey",                "15 mar 2026", SportType.Run,  42.2, 14400, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("58", "Ciclismo de montaña avanzado 50K",    "12 mar 2026", SportType.Ride, 50.0, 9000,  "gcpyHfmioVgEgEgEgEgEgEcBz@fEfEfEfEcBz@gEgEgEgEgEgE"),
+        Activity("59", "Caminata exploratoria Tlalpan",       "10 mar 2026", SportType.Walk, 8.1,  5400,  "gcpyHfmioVz@cBz@cBcBz@cBz@cBz@cBz@z@cBz@cBcBz@"),
+        Activity("60", "Trail 25K Sierra de Álvarez",         "7 mar 2026",  SportType.Hike, 25.0, 18000, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("61", "Natación de fondo 2.5km",             "5 mar 2026",  SportType.Swim, 2.5,  4200,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("62", "Carrera de velocidad 5x1K",           "3 mar 2026",  SportType.Run,  7.2,  2160,  "gcpyHfmioVgEgEfEfEgEgEfEfEgEgEfEfEgEgEfEfE"),
+        // Febrero 2026
+        Activity("63", "Ciclismo criterium 40K",              "28 feb 2026", SportType.Ride, 40.0, 4500,  "gcpyHfmioVgEgEcBz@gEgEcBz@gEgEcBz@gEgEcBz@gEgEcBz@"),
+        Activity("64", "Senderismo con niños Cumbres",        "26 feb 2026", SportType.Hike, 5.5,  6300,  "gcpyHfmioVcBz@cBz@cBz@gEgEcBz@cBz@cBz@"),
+        Activity("65", "Paseo en bici familiar 20K",          "24 feb 2026", SportType.Ride, 20.0, 4500,  "gcpyHfmioVz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@cB"),
+        Activity("66", "Media maratón LALA",                  "22 feb 2026", SportType.Run,  21.1, 6480,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("67", "Natación 1500m competencia",          "20 feb 2026", SportType.Swim, 1.5,  1800,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfEgEgEgEgE"),
+        Activity("68", "Caminata de tarde en Vallarta",       "18 feb 2026", SportType.Walk, 5.7,  4140,  "gcpyHfmioVcBz@z@cBcBz@z@cBcBz@z@cB"),
+        Activity("69", "Trail de alta montaña Iztaccíhuatl",  "15 feb 2026", SportType.Hike, 18.0, 28800, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("70", "Ciclismo de playa 30K",               "12 feb 2026", SportType.Ride, 30.0, 5400,  "gcpyHfmioVcBz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@"),
+        Activity("71", "Rodaje de recuperación 5K",           "10 feb 2026", SportType.Run,  5.0,  1800,  "gcpyHfmioVcBz@cBz@cBz@cBz@cBz@cBz@cBz@"),
+        Activity("72", "Senderismo en el Parque Nacional Cumbres", "8 feb 2026", SportType.Hike, 11.2, 9000, "gcpyHfmioVgEgEgEgEgEgEgEgEcBz@fEfEfEfEfEfEfEfEcBz@gEgEgEgEgEgEgEgE"),
+        Activity("73", "Natación técnica avanzada 1.8km",     "6 feb 2026",  SportType.Swim, 1.8,  2700,  "gcpyHfmioVgEgEcBz@fEfEcBz@gEgEcBz@fEfEcBz@gEgE"),
+        Activity("74", "Carrera de cross country 8K",         "4 feb 2026",  SportType.Run,  8.0,  2700,  "gcpyHfmioVgEgEcBz@gEgEcBz@fEfEcBz@gEgEcBz@"),
+        Activity("75", "Ciclismo de pista 80K",               "2 feb 2026",  SportType.Ride, 80.0, 8640,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEgEgEgEgEgEgEgEgEgEgE"),
+        // Enero 2026
+        Activity("76", "Paseo matutino con perro 4K",         "30 ene 2026", SportType.Walk, 4.0,  2880,  "gcpyHfmioVz@cBcBz@z@cBcBz@z@cBcBz@z@cBcBz@"),
+        Activity("77", "15K de entrenamiento",                "28 ene 2026", SportType.Run,  15.0, 4980,  "gcpyHfmioVgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEgEgEgEgEgEgEgEgE"),
+        Activity("78", "Cicloturismo Ajusco 110K",            "25 ene 2026", SportType.Ride, 110.0, 16200, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("79", "Senderismo al Volcán Barva",          "22 ene 2026", SportType.Hike, 16.8, 21600, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("80", "Natación de resistencia 3.8km",       "19 ene 2026", SportType.Swim, 3.8,  6300,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("81", "Carrera 25K preparación maratón",     "16 ene 2026", SportType.Run,  25.0, 8820,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("82", "Ciclismo de alto rendimiento 95K",    "13 ene 2026", SportType.Ride, 95.0, 11700, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("83", "Caminata en el Desierto de los Leones", "10 ene 2026", SportType.Walk, 9.3, 6480, "gcpyHfmioVcBz@z@cBcBz@z@cBcBz@z@cBcBz@z@cBcBz@z@cB"),
+        Activity("84", "Carrera de año nuevo 10K",            "1 ene 2026",  SportType.Run,  10.0, 3060,  "gcpyHfmioVgEgEgEgEcBz@fEfEfEfEcBz@gEgEgEgE"),
+        // Diciembre 2025
+        Activity("85", "Última bici del año 50K",             "31 dic 2025", SportType.Ride, 50.0, 6480,  "gcpyHfmioVgEgEgEgEcBz@cBz@fEfEfEfEcBz@cBz@gEgEgEgE"),
+        Activity("86", "Caminata navideña en el zócalo",      "25 dic 2025", SportType.Walk, 4.8,  3600,  "gcpyHfmioVz@cBcBz@cBz@z@cBcBz@cBz@z@cB"),
+        Activity("87", "Trail de diciembre 20K",              "20 dic 2025", SportType.Hike, 20.0, 14400, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("88", "Natación de invierno 2km",            "15 dic 2025", SportType.Swim, 2.0,  3060,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfEgEgEgEgEgEgE"),
+        Activity("89", "5K navideña Carrera de los Reyes",    "12 dic 2025", SportType.Run,  5.0,  1440,  "gcpyHfmioVgEgEcBz@fEfEcBz@gEgEcBz@fEfE"),
+        Activity("90", "Ciclismo Tepoztlán 65K",              "6 dic 2025",  SportType.Ride, 65.0, 8640,  "gcpyHfmioVgEgEgEgEgEgEcBz@fEfEfEfEfEfEcBz@gEgEgEgEgEgE"),
+        // Noviembre 2025
+        Activity("91", "Senderismo otoñal Nevado de Toluca",  "22 nov 2025", SportType.Hike, 12.0, 10800, "gcpyHfmioVgEgEgEgEcBz@fEfEcBz@gEgEgEgEcBz@fEfEcBz@"),
+        Activity("92", "Carrera popular 10K Monterrey",       "15 nov 2025", SportType.Run,  10.0, 3300,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEgEgEgEgEgEgE"),
+        Activity("93", "Ciclismo de noviembre 45K",           "8 nov 2025",  SportType.Ride, 45.0, 6300,  "gcpyHfmioVgEgEgEgEgEgEcBz@fEfEfEfEfEfEcBz@gEgEgEgEgEgE"),
+        Activity("94", "Natación 1.5km competencia",          "1 nov 2025",  SportType.Swim, 1.5,  1980,  "gcpyHfmioVgEgEgEgEgEgEfEfEfEfEfEfEgEgEgEgE"),
+        // Octubre 2025
+        Activity("95", "Caminata de octubre 6K",              "31 oct 2025", SportType.Walk, 6.0,  4320,  "gcpyHfmioVcBz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@cBz@"),
+        Activity("96", "Maratón de la CDMX",                  "26 oct 2025", SportType.Run,  42.2, 15120, "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("97", "Ciclismo Grupal 80K",                 "18 oct 2025", SportType.Ride, 80.0, 9720,  "gcpyHfmioVgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEgEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfEfE"),
+        Activity("98", "Senderismo Grupal Cofre de Perote",   "11 oct 2025", SportType.Hike, 14.5, 12600, "gcpyHfmioVgEgEgEgEgEgEgEgEcBz@fEfEfEfEfEfEfEfEcBz@gEgEgEgEgEgEgEgE"),
+        // Septiembre 2025
+        Activity("99", "Primera carrera del ciclo 5K",        "20 sep 2025", SportType.Run,  5.0,  1560,  "gcpyHfmioVcBz@cBz@gEgEcBz@cBz@gEgE"),
+        Activity("100","Bici de regreso a entrenamientos 30K","5 sep 2025",  SportType.Ride, 30.0, 4500,  "gcpyHfmioVgEgEcBz@cBz@fEfEz@cBcBz@gEgEcBz@"),
     )
 }

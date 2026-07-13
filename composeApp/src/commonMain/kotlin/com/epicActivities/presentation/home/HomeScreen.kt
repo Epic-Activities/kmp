@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +28,6 @@ private val StravaOrange = Color(0xFFFC4C02)
 @Composable
 fun HomeScreen(
     onNavigateToStravaActivities: () -> Unit,
-    onNavigateToGpxUpload: () -> Unit,
     viewModel: HomeViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
@@ -68,24 +66,6 @@ fun HomeScreen(
             ) {
                 Text(
                     text = "Conectar con Strava",
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            }
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = "o",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            OutlinedButton(
-                onClick = onNavigateToGpxUpload,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-            ) {
-                Text(
-                    text = "Subir archivo GPX",
                     style = MaterialTheme.typography.labelLarge,
                 )
             }

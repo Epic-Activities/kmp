@@ -1,5 +1,6 @@
 package com.epicActivities.presentation.strava.activities
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,17 +10,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,17 +37,48 @@ import com.epicActivities.domain.model.Activity
 @Composable
 fun StravaActivitiesScreen(
     onBack: () -> Unit,
-    onActivitySelected: (Activity) -> Unit,
+    onActivitiesSelected: (List<Activity>) -> Unit,
     viewModel: StravaActivitiesViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+    val selectedCount = state.selectedIds.size
+    var showExitDialog by remember { mutableStateOf(false) }
+
+    BackHandler { showExitDialog = true }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text("¿Abandonar la selección?") },
+            text = { Text("Si sales ahora perderás las actividades que elegiste.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showExitDialog = false
+                    onBack()
+                }) {
+                    Text("Salir")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text("Quedarme")
+                }
+            },
+        )
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Seleccionar actividad") },
+                title = {
+                    if (selectedCount > 0) {
+                        Text("$selectedCount seleccionada${if (selectedCount > 1) "s" else ""}")
+                    } else {
+                        Text("Seleccionar actividades")
+                    }
+                },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = { showExitDialog = true }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Volver",
@@ -48,6 +86,15 @@ fun StravaActivitiesScreen(
                     }
                 },
             )
+        },
+        floatingActionButton = {
+            if (selectedCount > 0) {
+                ExtendedFloatingActionButton(
+                    onClick = { onActivitiesSelected(state.selectedActivities) },
+                    text = { Text(text = "Go") },
+                    icon = {},
+                )
+            }
         },
     ) { paddingValues ->
         Box(
@@ -71,7 +118,8 @@ fun StravaActivitiesScreen(
                     items(state.activities, key = { it.id }) { activity ->
                         ActivityItem(
                             activity = activity,
-                            onClick = { onActivitySelected(activity) },
+                            isSelected = activity.id in state.selectedIds,
+                            onClick = { viewModel.toggleSelection(activity.id) },
                         )
                     }
                 }

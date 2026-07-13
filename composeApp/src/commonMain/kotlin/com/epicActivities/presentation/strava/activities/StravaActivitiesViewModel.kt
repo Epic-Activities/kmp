@@ -19,6 +19,17 @@ class StravaActivitiesViewModel : ViewModel() {
         loadActivities()
     }
 
+    fun toggleSelection(id: String) {
+        _state.update { current ->
+            val newSelected = if (id in current.selectedIds) {
+                current.selectedIds - id
+            } else {
+                current.selectedIds + id
+            }
+            current.copy(selectedIds = newSelected)
+        }
+    }
+
     private fun loadActivities() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
