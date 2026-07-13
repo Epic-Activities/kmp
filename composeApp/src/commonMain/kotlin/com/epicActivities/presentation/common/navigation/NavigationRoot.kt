@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.epicActivities.presentation.gpx.upload.GpxUploadScreen
 import com.epicActivities.presentation.home.HomeScreen
 import com.epicActivities.presentation.photo.selection.PhotoSelectionScreen
 import com.epicActivities.presentation.preview.PreviewScreen
@@ -20,42 +19,28 @@ fun NavigationRoot() {
             entry<Route.Home> {
                 HomeScreen(
                     onNavigateToStravaActivities = {
-                        backStack.addIfAbsent(Route.StravaActivities)
-                    },
-                    onNavigateToGpxUpload = {
-                        backStack.addIfAbsent(Route.GpxUpload)
+                        backStack.add(Route.StravaActivities)
                     },
                 )
             }
             entry<Route.StravaActivities> {
                 StravaActivitiesScreen(
                     onBack = { backStack.popIfNotRoot() },
-                    onActivitySelected = { activity ->
-                        backStack.add(
-                            Route.PhotoSelection(
-                                activityId = activity.id,
-                                activityTitle = activity.title,
-                                polyline = activity.polyline,
-                            ),
-                        )
+                    onActivitiesSelected = { activities ->
+                        backStack.add(Route.PhotoSelection(activities = activities))
                     },
                 )
             }
-            entry<Route.GpxUpload> {
-                GpxUploadScreen(
-                    onBack = { backStack.popIfNotRoot() },
-                )
-            }
             entry<Route.PhotoSelection> { route ->
+                val first = route.activities.first()
                 PhotoSelectionScreen(
-                    activityTitle = route.activityTitle,
-                    polyline = route.polyline,
+                    activityTitle = first.title,
+                    polyline = first.polyline,
                     onBack = { backStack.popIfNotRoot() },
                     onNavigateToPreview = { photoUri ->
                         backStack.add(
                             Route.Preview(
-                                activityTitle = route.activityTitle,
-                                polyline = route.polyline,
+                                activities = route.activities,
                                 photoUri = photoUri,
                             ),
                         )
@@ -64,10 +49,13 @@ fun NavigationRoot() {
             }
             entry<Route.Preview> { route ->
                 PreviewScreen(
-                    activityTitle = route.activityTitle,
-                    polyline = route.polyline,
+                    activities = route.activities,
                     photoUri = route.photoUri,
                     onBack = { backStack.popIfNotRoot() },
+                    onBackToActivities = {
+                        backStack.popIfNotRoot() // saca Preview
+                        backStack.popIfNotRoot() // saca PhotoSelection
+                    },
                 )
             }
         },
