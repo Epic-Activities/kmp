@@ -41,6 +41,15 @@ class HomeViewModel : ViewModel() {
                 }
             }
         }
+
+        viewModelScope.launch {
+            StravaCodeHolder.disconnected.collect { disconnected ->
+                if (disconnected) {
+                    _state.update { it.copy(isConnected = false, error = null) }
+                    StravaCodeHolder.consumeDisconnect()
+                }
+            }
+        }
     }
 
     fun connectStrava() {

@@ -15,4 +15,15 @@ object StravaCodeHolder {
     fun consume() {
         _code.value = null
     }
+
+    private val _disconnected = MutableStateFlow(false)
+    val disconnected: StateFlow<Boolean> = _disconnected.asStateFlow()
+
+    fun signalDisconnect() {
+        _disconnected.value = true
+    }
+
+    fun consumeDisconnect() {
+        _disconnected.value = false
+    }
 }
