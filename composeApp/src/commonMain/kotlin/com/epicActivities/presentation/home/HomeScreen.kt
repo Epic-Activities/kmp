@@ -7,12 +7,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,6 +35,13 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+
+    // Navigate to activities after a successful OAuth code exchange
+    LaunchedEffect(Unit) {
+        viewModel.navigateToActivities.collect {
+            onNavigateToStravaActivities()
+        }
+    }
 
     Scaffold { paddingValues ->
         Column(
@@ -55,18 +66,50 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(64.dp))
-            Button(
-                onClick = onNavigateToStravaActivities,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = StravaOrange,
-                ),
-            ) {
+
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(48.dp),
+                    color = StravaOrange,
+                )
+            } else if (state.isConnected) {
+                Button(
+                    onClick = onNavigateToStravaActivities,
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = StravaOrange),
+                ) {
+                    Text(
+                        text = "Ver mis actividades",
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                TextButton(onClick = viewModel::disconnect) {
+                    Text(
+                        text = "Desconectar de Strava",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            } else {
+                Button(
+                    onClick = viewModel::connectStrava,
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = StravaOrange),
+                ) {
+                    Text(
+                        text = "Conectar con Strava",
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
+            }
+
+            if (state.error != null) {
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Conectar con Strava",
-                    style = MaterialTheme.typography.labelLarge,
+                    text = state.error!!,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center,
                 )
             }
         }
