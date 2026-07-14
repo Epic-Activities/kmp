@@ -2,7 +2,7 @@ package com.epicActivities.presentation.strava.activities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epicActivities.domain.usecase.GetActivitiesUseCase
+import com.epicActivities.domain.usecase.GetStravaActivitiesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class StravaActivitiesViewModel : ViewModel() {
-    private val getActivitiesUseCase = GetActivitiesUseCase()
+    private val getActivitiesUseCase = GetStravaActivitiesUseCase()
 
     private val _state = MutableStateFlow(StravaActivitiesState())
     val state: StateFlow<StravaActivitiesState> = _state.asStateFlow()
@@ -32,9 +32,16 @@ class StravaActivitiesViewModel : ViewModel() {
 
     private fun loadActivities() {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-            val activities = getActivitiesUseCase()
-            _state.update { it.copy(isLoading = false, activities = activities) }
+            _state.update { it.copy(isLoading = true, error = null) }
+            getActivitiesUseCase()
+                .onSuccess { activities ->
+                    _state.update { it.copy(isLoading = false, activities = activities) }
+                }
+                .onFailure { e ->
+                    _state.update {
+                        it.copy(isLoading = false, error = e.message ?: "Error al cargar actividades")
+                    }
+                }
         }
     }
 }
