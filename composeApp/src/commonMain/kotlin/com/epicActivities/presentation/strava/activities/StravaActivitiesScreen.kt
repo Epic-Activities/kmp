@@ -105,6 +105,11 @@ fun StravaActivitiesScreen(
         ) {
             when {
                 state.isLoading -> CircularProgressIndicator()
+                state.error != null -> Text(
+                    text = state.error!!,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.error,
+                )
                 state.activities.isEmpty() -> Text(
                     text = "No hay actividades disponibles.",
                     style = MaterialTheme.typography.bodyLarge,
