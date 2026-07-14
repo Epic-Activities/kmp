@@ -31,7 +31,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.activity.compose)
             implementation(libs.ktor.client.android)
-            implementation(libs.security.crypto)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

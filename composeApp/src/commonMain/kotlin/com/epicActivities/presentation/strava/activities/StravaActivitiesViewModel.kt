@@ -15,16 +15,23 @@ class StravaActivitiesViewModel : ViewModel() {
     private val getActivitiesUseCase = GetStravaActivitiesUseCase()
     private val tokenStorage = StravaTokenStorage()
 
-    fun disconnect() {
-        tokenStorage.clear()
-        StravaCodeHolder.signalDisconnect()
-    }
+    private var hasLoaded = false
 
     private val _state = MutableStateFlow(StravaActivitiesState())
     val state: StateFlow<StravaActivitiesState> = _state.asStateFlow()
 
-    init {
-        loadActivities()
+    fun loadIfNeeded() {
+        if (!hasLoaded) {
+            hasLoaded = true
+            loadActivities()
+        }
+    }
+
+    fun disconnect() {
+        hasLoaded = false
+        _state.value = StravaActivitiesState()
+        tokenStorage.clear()
+        StravaCodeHolder.signalDisconnect()
     }
 
     fun toggleSelection(id: String) {
