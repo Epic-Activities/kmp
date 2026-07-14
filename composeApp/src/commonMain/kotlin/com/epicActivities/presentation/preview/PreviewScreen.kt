@@ -35,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -69,6 +70,8 @@ fun PreviewScreen(
     val scope = rememberCoroutineScope()
     val currentActivities = remember { mutableStateListOf(*activities.toTypedArray()) }
     val generated = state.generatedImageBytes
+
+    DisposableEffect(Unit) { onDispose { viewModel.reset() } }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },

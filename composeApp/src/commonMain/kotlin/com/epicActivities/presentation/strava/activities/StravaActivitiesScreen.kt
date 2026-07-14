@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,8 @@ fun StravaActivitiesScreen(
     onActivitiesSelected: (List<Activity>) -> Unit,
     viewModel: StravaActivitiesViewModel = viewModel(),
 ) {
+    LaunchedEffect(Unit) { viewModel.loadIfNeeded() }
+
     val state by viewModel.state.collectAsState()
     val selectedCount = state.selectedIds.size
     var showExitDialog by remember { mutableStateOf(false) }

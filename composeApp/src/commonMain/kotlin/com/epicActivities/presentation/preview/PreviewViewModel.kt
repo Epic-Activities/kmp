@@ -16,6 +16,10 @@ class PreviewViewModel : ViewModel() {
     private val _state = MutableStateFlow(PreviewState())
     val state: StateFlow<PreviewState> = _state.asStateFlow()
 
+    fun reset() {
+        _state.value = PreviewState()
+    }
+
     fun generateEpic(photoUri: String, activities: List<Activity>) {
         viewModelScope.launch {
             _state.update { it.copy(isGenerating = true, error = null) }
