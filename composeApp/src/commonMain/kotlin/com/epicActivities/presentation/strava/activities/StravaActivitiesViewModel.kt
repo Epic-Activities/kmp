@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.epicActivities.domain.usecase.GetStravaActivitiesUseCase
 import com.epicActivities.platform.StravaTokenStorage
+import com.epicActivities.presentation.common.StravaCodeHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +17,7 @@ class StravaActivitiesViewModel : ViewModel() {
 
     fun disconnect() {
         tokenStorage.clear()
+        StravaCodeHolder.signalDisconnect()
     }
 
     private val _state = MutableStateFlow(StravaActivitiesState())
