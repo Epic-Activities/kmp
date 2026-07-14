@@ -49,11 +49,12 @@ fun StravaActivitiesScreen(
     if (showExitDialog) {
         AlertDialog(
             onDismissRequest = { showExitDialog = false },
-            title = { Text("¿Abandonar la selección?") },
-            text = { Text("Si sales ahora perderás las actividades que elegiste.") },
+            title = { Text("¿Salir de tu cuenta?") },
+            text = { Text("Si sales tendrás que volver a conectar con Strava y cargar tus actividades.") },
             confirmButton = {
                 TextButton(onClick = {
                     showExitDialog = false
+                    viewModel.disconnect()
                     onBack()
                 }) {
                     Text("Salir")
