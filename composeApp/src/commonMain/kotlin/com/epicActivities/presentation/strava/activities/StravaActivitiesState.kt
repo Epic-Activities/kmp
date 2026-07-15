@@ -8,6 +8,7 @@ data class StravaActivitiesState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val error: String? = null,
+    val scrollToTopVersion: Int = 0,
 ) {
     val selectedActivities: List<Activity>
         get() = activities.filter { it.id in selectedIds }
