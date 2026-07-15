@@ -29,6 +29,10 @@ class StravaActivitiesViewModel : ViewModel() {
         _state.value = StravaActivitiesState()
     }
 
+    fun clearSelection() {
+        _state.update { it.copy(selectedIds = emptySet()) }
+    }
+
     fun toggleSelection(id: String) {
         _state.update { current ->
             val newSelected = if (id in current.selectedIds) {

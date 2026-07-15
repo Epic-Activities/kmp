@@ -63,6 +63,7 @@ fun PreviewScreen(
     photoUri: String,
     onBack: () -> Unit,
     onBackToActivities: () -> Unit,
+    onMakeAnother: () -> Unit,
     viewModel: PreviewViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsState()
@@ -134,7 +135,7 @@ fun PreviewScreen(
                         }
                     }
                 } else {
-                    // Después de generar: solo Descargar foto
+                    // Después de generar: Descargar foto + Hacer otra imagen
                     OutlinedButton(
                         onClick = {
                             scope.launch {
@@ -148,6 +149,15 @@ fun PreviewScreen(
                     ) {
                         Text(
                             text = "Descargar foto",
+                            style = MaterialTheme.typography.labelLarge,
+                        )
+                    }
+                    OutlinedButton(
+                        onClick = onMakeAnother,
+                        modifier = Modifier.fillMaxWidth().height(56.dp),
+                    ) {
+                        Text(
+                            text = "Hacer otra imagen",
                             style = MaterialTheme.typography.labelLarge,
                         )
                     }
