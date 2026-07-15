@@ -3,8 +3,6 @@ package com.epicActivities.presentation.strava.activities
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.epicActivities.domain.usecase.GetStravaActivitiesUseCase
-import com.epicActivities.platform.StravaTokenStorage
-import com.epicActivities.presentation.common.StravaCodeHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class StravaActivitiesViewModel : ViewModel() {
     private val getActivitiesUseCase = GetStravaActivitiesUseCase()
-    private val tokenStorage = StravaTokenStorage()
 
     private var hasLoaded = false
 
@@ -27,11 +24,9 @@ class StravaActivitiesViewModel : ViewModel() {
         }
     }
 
-    fun disconnect() {
+    fun resetForHome() {
         hasLoaded = false
         _state.value = StravaActivitiesState()
-        tokenStorage.clear()
-        StravaCodeHolder.signalDisconnect()
     }
 
     fun toggleSelection(id: String) {
