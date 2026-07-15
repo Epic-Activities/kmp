@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -47,6 +48,14 @@ fun StravaActivitiesScreen(
     val state by viewModel.state.collectAsState()
     val selectedCount = state.selectedIds.size
     var showExitDialog by remember { mutableStateOf(false) }
+    val listState = rememberLazyListState()
+    var wasRefreshing by remember { mutableStateOf(false) }
+    LaunchedEffect(state.isRefreshing) {
+        if (wasRefreshing && !state.isRefreshing) {
+            listState.animateScrollToItem(0)
+        }
+        wasRefreshing = state.isRefreshing
+    }
 
     BackHandler { showExitDialog = true }
 
@@ -137,6 +146,7 @@ fun StravaActivitiesScreen(
                     )
                 }
                 else -> LazyColumn(
+                    state = listState,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
