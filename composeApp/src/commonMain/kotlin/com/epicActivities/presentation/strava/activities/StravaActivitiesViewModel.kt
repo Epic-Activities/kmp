@@ -33,6 +33,21 @@ class StravaActivitiesViewModel : ViewModel() {
         _state.update { it.copy(selectedIds = emptySet()) }
     }
 
+    fun refresh() {
+        viewModelScope.launch {
+            _state.update { it.copy(isRefreshing = true, error = null) }
+            getActivitiesUseCase()
+                .onSuccess { activities ->
+                    _state.update { it.copy(isRefreshing = false, activities = activities) }
+                }
+                .onFailure { e ->
+                    _state.update {
+                        it.copy(isRefreshing = false, error = e.message ?: "Error al cargar actividades")
+                    }
+                }
+        }
+    }
+
     fun toggleSelection(id: String) {
         _state.update { current ->
             val newSelected = if (id in current.selectedIds) {

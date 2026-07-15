@@ -6,6 +6,7 @@ data class StravaActivitiesState(
     val activities: List<Activity> = emptyList(),
     val selectedIds: Set<String> = emptySet(),
     val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
     val error: String? = null,
 ) {
     val selectedActivities: List<Activity>
