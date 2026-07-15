@@ -51,8 +51,8 @@ fun StravaActivitiesScreen(
     val listState = rememberLazyListState()
     var wasRefreshing by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.scrollToTop.collect { listState.animateScrollToItem(0) }
+    LaunchedEffect(state.scrollToTopVersion) {
+        if (state.scrollToTopVersion > 0) listState.animateScrollToItem(0)
     }
     LaunchedEffect(state.isRefreshing) {
         if (wasRefreshing && !state.isRefreshing) {
