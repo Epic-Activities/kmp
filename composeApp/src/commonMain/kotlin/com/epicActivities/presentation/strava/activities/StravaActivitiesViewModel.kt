@@ -3,8 +3,11 @@ package com.epicActivities.presentation.strava.activities
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.epicActivities.domain.usecase.GetStravaActivitiesUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -16,6 +19,9 @@ class StravaActivitiesViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(StravaActivitiesState())
     val state: StateFlow<StravaActivitiesState> = _state.asStateFlow()
+
+    private val _scrollToTop = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    val scrollToTop: SharedFlow<Unit> = _scrollToTop.asSharedFlow()
 
     fun loadIfNeeded() {
         if (!hasLoaded) {
@@ -31,6 +37,7 @@ class StravaActivitiesViewModel : ViewModel() {
 
     fun clearSelection() {
         _state.update { it.copy(selectedIds = emptySet()) }
+        _scrollToTop.tryEmit(Unit)
     }
 
     fun refresh() {
